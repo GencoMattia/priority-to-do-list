@@ -2,96 +2,13 @@
 export default {
     data() {
         return {
-            coseDaFare: [
-                { 
-                    nome: "Lavare i piatti", 
-                    priorità: 3,
-                    scadenza: "",
-                },
-                { 
-                    nome: "Sistemare camera", 
-                    priorità: 0,
-                    scadenza: "",
-                },
-                { 
-                    nome: "Ordinare i cassetti", 
-                    priorità: 1,
-                    scadenza: "", 
-                },
-                { 
-                    nome: "Ordinare l'armadio", 
-                    priorità: 1,
-                    scadenza: "", 
-                },
-                { 
-                    nome: "Svuotare le ultime scatole e sistemare la scrivania", 
-                    priorità: 0,
-                    scadenza: "", 
-                },
-                { 
-                    nome: "Sistemare gli scaffali", 
-                    priorità: 1,
-                    scadenza: "",
-                },
-                { 
-                    nome: "Buttare la spazzatura", 
-                    priorità: 3,
-                    scadenza: "", 
-                },
-                { 
-                    nome: "Pulire la cucina", 
-                    priorità: 2,
-                    scadenza: "", 
-                },
-                { 
-                    nome: "Pulire e sistemare il bagno", 
-                    priorità: 1,
-                    scadenza: "", 
-                },
-                { 
-                    nome: "Passare l'antiscarafaggi", 
-                    priorità: 0,
-                    scadenza: "", 
-                },
-                { 
-                    nome: "Pulire i davanzali delle finestre/i bordi della portafinestra da ragnatele e schifo", 
-                    priorità: 0,
-                    scadenza: "", 
-                },
-                { 
-                    nome: "Mettere le trappole per scarafaggi sotto la cucina", 
-                    priorità: 0,
-                    scadenza: "", 
-                },
-                { 
-                    nome: "Passare l'aspirapolvere sotto la cucina e buttare via le trappole vecchie", 
-                    priorità: 0,
-                    scadenza: "", 
-                },
-                { 
-                    nome: "Fare la spesa", 
-                    priorità: 2,
-                    scadenza: "", 
-                },
-                { 
-                    nome: "Pulire i mobili della cucina e mettere in ordine le cose della casa (utensili che erano già qui)", 
-                    priorità: 3,
-                    scadenza: "", 
-                },
-                { 
-                    nome: "Togliere i vestiti dallo stendino e metterli a posto", 
-                    priorità: 2,
-                    scadenza: "", 
-                },
-            ],
-
+            coseDaFare: JSON.parse(localStorage.getItem('coseDaFare')) || [],
             nuovaAttivita: {
                 nome: "",
                 priorità: "",
                 scadenza: "",
             },
-
-            coseSvolte: [],
+            coseSvolte: JSON.parse(localStorage.getItem('coseSvolte')) || [],
         };
     },
 
@@ -106,6 +23,7 @@ export default {
             } else {
                 alert("Per favore, compila tutti i campi.");
             }
+            this.salvaDatiInLocalStorage();
         },
         rimuoviAttivita() {
             if (this.coseDaFareOrdinate.length > 0) {
@@ -113,6 +31,11 @@ export default {
 
                 this.coseDaFare.splice(this.coseDaFare.indexOf(this.coseDaFareOrdinate[0]), 1);
             }
+            this.salvaDatiInLocalStorage();
+        },
+        salvaDatiInLocalStorage() {
+            localStorage.setItem('coseDaFare', JSON.stringify(this.coseDaFare));
+            localStorage.setItem('coseSvolte', JSON.stringify(this.coseSvolte));
         },
     },
 
@@ -132,6 +55,10 @@ export default {
             return a.priorità - b.priorità;
             });
         },
+    },
+
+    mounted() {
+        this.salvaDatiInLocalStorage();
     },
 };
 </script>
