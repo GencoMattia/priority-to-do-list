@@ -116,6 +116,22 @@ export default {
                 </p>
             </div>
         </section>
+        <section class="container form-container">
+            <input class="form-control form-control-lg" type="text" placeholder="Cosa devi fare?" aria-label=".form-control-lg example">
+            <input class="form-control form-control-lg" type="date" placeholder="Entro che giorno?" aria-label=".form-control-lg example">
+            <select class="form-select form-select-lg" aria-label="Large select example">
+                <option selected>Livello di Priorità</option>
+                <option value="0">Super Urgentissimissimo</option>
+                <option value="1">Urgente</option>
+                <option value="2">Meh, quasi urgente</option>
+                <option value="3">Cos'era più?</option>
+            </select>
+            <div class="d-grid gap-2">
+                <button type="button" class="btn btn-info btn-lg">
+                    Invia
+                </button>
+            </div>
+        </section>
     </main>
 </template>
 
