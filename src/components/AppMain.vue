@@ -140,15 +140,14 @@ export default {
     <main>
         <section class="container">
             <div class="row">
-                <div class="alert alert-danger col-11 m-0" role="alert" v-if="coseDaFareOrdinate.length > 0">
-                    <p class="m-0">
+                <div class="alert alert-danger m-0 d-flex justify-content-between" role="alert" v-if="coseDaFareOrdinate.length > 0">
+                    <p class="m-0" v-if="coseDaFareOrdinate.length > 0">
                         {{ coseDaFareOrdinate[0].nome }}
                     </p>
-                </div>
-                <div class="d-grid gap-2 col-1 p-0">
-                    <button type="button" class="btn btn-info btn-lg" @click="rimuoviAttivita">
-                        X
-                    </button>
+                    <p class="m-0" v-else>
+                        Bravissima, hai fatto tutto!
+                    </p>
+                    <button type="button" class="btn-close" aria-label="Close" @click="rimuoviAttivita" v-if="coseDaFareOrdinate.length > 0"></button>
                 </div>
             </div>
         </section>
