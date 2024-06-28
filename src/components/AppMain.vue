@@ -83,8 +83,37 @@ export default {
                     priorità: 2,
                     scadenza: "", 
                 },
-            ]
+            ],
+
+            nuovaAttivita: {
+                nome: "",
+                priorità: "",
+                scadenza: "",
+            },
+
+            coseSvolte: [],
         };
+    },
+
+    methods: {
+        aggiungiAttivita() {
+            if (this.nuovaAttivita.nome && this.nuovaAttivita.priorità && this.nuovaAttivita.scadenza) {
+                this.coseDaFare.push({ ...this.nuovaAttivita }); 
+
+                this.nuovaAttivita.nome = "";
+                this.nuovaAttivita.priorità = "";
+                this.nuovaAttivita.scadenza = "";
+            } else {
+                alert("Per favore, compila tutti i campi.");
+            }
+        },
+        rimuoviAttivita() {
+            if (this.coseDaFareOrdinate.length > 0) {
+                this.coseSvolte.push(this.coseDaFareOrdinate[0]);
+
+                this.coseDaFare.splice(this.coseDaFare.indexOf(this.coseDaFareOrdinate[0]), 1);
+            }
+        },
     },
 
     computed: {
@@ -110,16 +139,23 @@ export default {
 <template>
     <main>
         <section class="container">
-            <div class="alert alert-danger" role="alert" v-if="coseDaFareOrdinate.length > 0">
-                <p class="m-0">
-                    {{ coseDaFareOrdinate[0].nome }}
-                </p>
+            <div class="row">
+                <div class="alert alert-danger col-11 m-0" role="alert" v-if="coseDaFareOrdinate.length > 0">
+                    <p class="m-0">
+                        {{ coseDaFareOrdinate[0].nome }}
+                    </p>
+                </div>
+                <div class="d-grid gap-2 col-1 p-0">
+                    <button type="button" class="btn btn-info btn-lg" @click="rimuoviAttivita">
+                        X
+                    </button>
+                </div>
             </div>
         </section>
         <section class="container form-container">
-            <input class="form-control form-control-lg" type="text" placeholder="Cosa devi fare?" aria-label=".form-control-lg example">
-            <input class="form-control form-control-lg" type="date" placeholder="Entro che giorno?" aria-label=".form-control-lg example">
-            <select class="form-select form-select-lg" aria-label="Large select example">
+            <input class="form-control form-control-lg" type="text" placeholder="Cosa devi fare?" aria-label=".form-control-lg example" v-model="nuovaAttivita.nome">
+            <input class="form-control form-control-lg" type="date" placeholder="Entro che giorno?" aria-label=".form-control-lg example" v-model="nuovaAttivita.scadenza">
+            <select class="form-select form-select-lg" aria-label="Large select example" v-model="nuovaAttivita.priorità">
                 <option selected>Livello di Priorità</option>
                 <option value="0">Super Urgentissimissimo</option>
                 <option value="1">Urgente</option>
@@ -127,7 +163,7 @@ export default {
                 <option value="3">Cos'era più?</option>
             </select>
             <div class="d-grid gap-2">
-                <button type="button" class="btn btn-info btn-lg">
+                <button type="button" class="btn btn-info btn-lg" @click="aggiungiAttivita">
                     Invia
                 </button>
             </div>
